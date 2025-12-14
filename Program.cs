@@ -11,7 +11,7 @@
         }
 
         private int GetHash(string name, bool quiet = false) {
-            int ASCIIsum = 0;
+            int ASCIIsum = 0; 
             if (!quiet) Console.Write($"Calculating hash for '{name}': "); 
 
             foreach (char letter in name) {
@@ -32,12 +32,12 @@
 
             int index = GetHash(name);
 
-            // open addressing method with linear probing
+            // open addressing method 
             //int originalIndex = index;
             //while (_table[index] != null) { 
             //    Console.WriteLine($"Collision detected at index {index} for '{name}'. Probing to next index.");
 
-            //    index = (index + 1) % _size; 
+            //    index = (index + 1) % _size;  // linear probing
 
             //    if (index == originalIndex) {
             //        Console.WriteLine("Hash table is full. Cannot insert new name.");
