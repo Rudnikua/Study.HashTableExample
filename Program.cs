@@ -1,13 +1,13 @@
 ﻿namespace HashTableExample
 {
     public class HashTable {
-        //private string[] _table; // open addressing method
-        LinkedList<string>[] _table; // chaining method
+        private string[] _table; // open addressing method
+        //LinkedList<string>[] _table; // chaining method
         private int _size;
         public HashTable(int size) {
             _size = size;
-            //_table = new string[size]; // open addressing method
-            _table = new LinkedList<string>[size]; // chaining method
+            _table = new string[size]; // open addressing method
+            //_table = new LinkedList<string>[size]; // chaining method
         }
 
         private int GetHash(string name, bool quiet = false) {
@@ -33,30 +33,30 @@
             int index = GetHash(name);
 
             // open addressing method 
-            //int originalIndex = index;
-            //while (_table[index] != null) { 
-            //    Console.WriteLine($"Collision detected at index {index} for '{name}'. Probing to next index.");
+            int originalIndex = index;
+            while (_table[index] != null) {
+                Console.WriteLine($"Collision detected at index {index} for '{name}'. Probing to next index.");
 
-            //    index = (index + 1) % _size;  // linear probing
+                index = (index + 1) % _size;  // linear probing
 
-            //    if (index == originalIndex) {
-            //        Console.WriteLine("Hash table is full. Cannot insert new name.");
-            //        return;
-            //    }
-            //}
-            //_table[index] = name;
-            //Console.WriteLine($"'{name}' inserted at index {index}.");
+                if (index == originalIndex) {
+                    Console.WriteLine("Hash table is full. Cannot insert new name.");
+                    return;
+                }
+            }
+            _table[index] = name;
+            Console.WriteLine($"'{name}' inserted at index {index}.");
             //
 
             // Chaining method
-            if (_table[index] == null) {
-                _table[index] = new LinkedList<string>();
-                Console.WriteLine($"Index {index} is empty. Creating new chain");
-            } else {
-                Console.WriteLine($"Collision detected at index {index} for '{name}'. Adding to the existing chain.");
-            }
-            _table[index].AddLast(name);
-            Console.WriteLine($"'{name}' added to chain at index {index}.");
+            //if (_table[index] == null) {
+            //    _table[index] = new LinkedList<string>();
+            //    Console.WriteLine($"Index {index} is empty. Creating new chain");
+            //} else {
+            //    Console.WriteLine($"Collision detected at index {index} for '{name}'. Adding to the existing chain.");
+            //}
+            //_table[index].AddLast(name);
+            //Console.WriteLine($"'{name}' added to chain at index {index}.");
             //
         }
 
@@ -66,36 +66,35 @@
             int index = GetHash(name, true);
 
             // open addressing method
-            //int originalIndex = index;
-            //while (_table[index] != null) {
+            int originalIndex = index;
+            while (_table[index] != null) {
 
-            //    if (_table[index] == name) {
-            //        return _table[index];
-            //    }
+                if (_table[index] == name) {
+                    return _table[index];
+                }
 
-            //    index = (index + 1) % _size;
-            //    if (index == originalIndex) {
-            //        break; 
-            //    }
-            //}
+                index = (index + 1) % _size;
+                if (index == originalIndex) {
+                    break;
+                }
+            }
             //
 
             // Chaining method
-            if (_table[index] == null) {
-                return null;
-            }
+            //if (_table[index] == null) {
+            //    return null;
+            //}
 
-            Console.WriteLine($"Looking inside chain at index {index}");
+            //Console.WriteLine($"Looking inside chain at index {index}");
 
-            foreach (string employee in _table[index]) {
-                Console.WriteLine($"Checking '{employee}'.");
-                if (employee == name) {
-                    Console.Write($" '{employee}' was Found");
-                    return employee;
-                }
-            }
+            //foreach (string employee in _table[index]) {
+            //    Console.WriteLine($"Checking '{employee}'.");
+            //    if (employee == name) {
+            //        return employee;
+            //    }
+            //}
 
-            Console.WriteLine($" '{name}' was Not Found in the chain at index {index}.");
+            //Console.WriteLine($" '{name}' was Not Found in the chain at index {index}.");
             //
 
 
@@ -105,24 +104,24 @@
         public void PrintTable() {
             Console.WriteLine("Hash Table Contents:");
             // open addressing method
-            //for (int i = 0; i < _size; i++) {
-            //    string value = _table[i] == null ? "[Empty]" : $"{_table[i]}";
-            //    Console.WriteLine($"Index {i}: {value}");
-            //}
+            for (int i = 0; i < _size; i++) {
+                string value = _table[i] == null ? "[Empty]" : $"{_table[i]}";
+                Console.WriteLine($"Index {i}: {value}");
+            }
             //
 
             // Chaining method
-            for (int i = 0; i < _size; i++) {
-                if (_table[i] == null) {
-                    Console.WriteLine($"Index {i}: [Empty]");
-                } else {
-                    Console.Write($"Index {i}: ");
-                    foreach (string name in _table[i]) {
-                        Console.Write($"{name} -> ");
-                    }
-                    Console.WriteLine("null");
-                }
-            }
+            //for (int i = 0; i < _size; i++) {
+            //    if (_table[i] == null) {
+            //        Console.WriteLine($"Index {i}: [Empty]");
+            //    } else {
+            //        Console.Write($"Index {i}: ");
+            //        foreach (string name in _table[i]) {
+            //            Console.Write($"{name} -> ");
+            //        }
+            //        Console.WriteLine("null");
+            //    }
+            //}
             //
             Console.WriteLine("---");
         }
